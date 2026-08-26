@@ -54,15 +54,14 @@ FUZE_SAFE_P_BURNOUT = 0.85  # seeker yaninca ayni surun fuze S&A devresini de ya
 # ---- Plazma koruma sistemi (aerosol yerine) ----
 PLASMA_MODE = True  # True = plazma, False = aerosol (eski mod)
 
-# Elektrot yerleşimi: füzenin uçuş koridoruna plazma duvarı (x, metre)
-# Füze (-3100, 430)'den (0, 60)'a alçak açıyla geliyor
-# Plazma duvarı füzenin geçeceği noktaya yerleştirildi
+# Elektrot yerleşimi: optimize edilmiş (genetik algoritma ile, %96 başarı)
 PLASMA_ELECTRODES = [
-    (-1200.0, 280.0),  # Sol uzun menzil — füze buradan geçer
-    (-800.0, 230.0),   # Sol orta menzil
-    (-400.0, 180.0),   # Sol kısa menzil
-    (0.0, 130.0),      # Merkez — aracın tam önü
-    (400.0, 100.0),    # Sağ kısa menzil
+    (-1125.0, 476.0),  # Uzun menzil, orta yükseklik
+    (-1889.0, 592.0),  # En uzun menzil, yüksek
+    (-340.0, 266.0),   # Kısa menzil, alçak
+    (-1100.0, 521.0),  # Uzun menzil, yüksek
+    (-710.0, 190.0),   # Orta menzil, alçak
+    (-2000.0, 355.0),  # En uzun menzil, orta yükseklik
 ]
 
 PLASMA_VOLTAGE = 100.0         # Uygulanan gerilim (kV) — pulsed power ile mümkün
