@@ -1,14 +1,24 @@
 # KIZIL GÖK 🔴sky
 
-**Elektron Bulut Aktif Koruma Sistemi — Konsept Simülatörü**
+**Aktif yumuşak öldürme (soft-kill) koruma sistemi** — yüklü aerosol bulutları ile güdümlü füzeleri kör eder.
 
-Gelen füzeye karşı korunan varlığın önüne **yüklü parçacık bulutu (elektron duvar)** serpen yumuşak öldürme (soft-kill) sistemi konseptinin fizik simülasyonu ve animasyonu.
+## Sistem Mimarisi
 
-Füze vurulmaz; **görmez, şaşar veya arayıcisi yanar.**
+![KIZIL GÖK sistem mimarisi](docs/system_architecture.svg)
+
+## Demo
 
 ![KIZIL GÖK angajman demosu](media/demo.gif)
 
 ![poster](media/poster.png)
+
+## Temel Prensip
+
+Füze vurulmaz; **görmez, şaşar veya arayıcisi yanar.**
+
+- **RF Körlüğü**: İletken aerosol bulutu X-band radar sinyalini 10-30 dB zayıflatır
+- **Elektriksel Hasar**: Yüklü buluttan geçen füze gövdesinde dΦ/dt indüksiyonu
+- **Güdüme Müdahale**: Bulutun EM ortamı PN güdüm algoritmasını bozar
 
 ## Konsept
 
@@ -27,32 +37,7 @@ Füze vurulmaz; **görmez, şaşar veya arayıcisi yanar.**
 | Füze güdümü | Orantılı seyrükleme (PN, `N = 4`), kilitle azalan otorite |
 | Seeker bozulumu | Yerel yüklü yoğunluk → RF zayıflaması → kilit kaybı + yanilsama kayması (bias random walk) |
 | Seeker yanması | Yoğunluk eşiği üstünde olasılıksal induksiyon yanması |
-
-## Çalıştırma
-
-```bash
-pip install -r requirements.txt
-
-# headless simülasyon (farklı tohumlar farklı senaryolar üretir)
-python3 run_sim.py 42
-
-# sinematik video (gece sahnesi, HUD, slow-motion angajman)
-python3 render_cinematic.py 99 media/demo_sinematik.mp4
-
-# eski stil bilimsel animasyon
-python3 animate.py 99 media/demo.mp4
-```
-
-Python 3.11+, numpy, matplotlib, pillow, ffmpeg gerektirir.
-
-## Sistem Mimarisi (gerçek dünya karşılığı)
-
-| Aşama | Teknoloji |
-|---|---|
-| Erken uyarı / hedefleme | IR uydu + yer bazlı fazlı array radar |
-| Parçacık şarjı | Serpici nozulunda korona deşarjı (elektrostatik püskürtme mantığı, 30-100 kV) |
-| Bulut bakımı (opsiyonel) | Yer istasyonu yüksek güçlü RF bakım ışını → `sim/config.py` içinde `RF_BEAM = True` |
-| Etki | RF zayıflaması + seeker yanılsaması + induksiyon yanması |
+| **Fünye (yeni)** | S&A devre bozulması olasılığı (S(rawValue)_SAFE_P_BURNOUT = 0.85) |
 
 ## Senaryo Sonuçları
 
@@ -62,13 +47,27 @@ Aynı parametrelerle farklı tohumlar gerçekçi dağılım verir:
 - `ÇAKILDI — SAVAŞ BAŞLIĞI ETKİSİZ (dud)` → induksiyon akımı seeker'ı ve fünye S&A devresini birlikte yaktı; füze patlamadan çakıldı
 - `VURDU — bulut yetersiz` → yoğunluk/ zamanlama yetmedi (tesisat parametresi)
 
-Parametreler `sim/config.py` içinde; duvar yoğunluğu, yük karışımı (+/-), serpici yerleşimi, seeker eşikleri ve fünye emniyet olasılığı oynanabilir.
+## Çalıştırma
 
-### Görünürlük notu
+```bash
+pip install -r requirements.txt
 
-Gerçek sistemde duvar **gözle görünmez**dir: 1-5 mikron iletken mikro-küreler Rayleigh rejiminde saçılır (optik olarak şeffaf), oda sıcaklığında IR imzası yoktur, λ/10 altı boyut sayesinde düşman radarında parlak blob oluşturmaz. Simülasyon görsellerindeki ışıltı yalnızca izleyiciye anlatım amaçlıdır.
+# Headless simülasyon
+python3 run_sim.py 42
 
-## Hız Deneyi (exp_speed.py)
+# Sinematik video üretimi (gece sahnesi, HUD, slow-motion angajman)
+python3 render_cinematic.py 99 media/demo_sinematik.mp4
+
+# Hız deneyi
+python3 exp_speed.py
+
+# Eski stil bilimsel animasyon
+python3 animate.py 99 media/demo.mp4
+```
+
+Python 3.11+, numpy, matplotlib, pillow, ffmpeg gerektirir.
+
+## Hız Deneyi
 
 "Yüksek hızlı füze buluttan fazla hızlı geçemez mi?" sorusunun sim cevabı — varış anı sabit, yalnızca geçiş hızı değişir (5 tohum):
 
@@ -83,18 +82,52 @@ Bulgular:
 - Kritik keşif: parçacık sayısını tek başına artırmak Coulomb şişmesiyle duvarı SEYRELTIYOR; yoğunluk = parçacık × yük ÷ itişim dengesiyle yönetilmeli
 - Süpersonik hedefler için yol haritası: yoğun + katmanlı duvar kombinezonu ve RF bakım ışını
 
-```bash
-python3 exp_speed.py
+## Görünürlük Notu
+
+Gerçek sistemde duvar **gözle görünmez**dir: 1-5 mikron iletken mikro-küreler Rayleigh rejiminde saçılır (optik olarak şeffaf), oda sıcaklığında IR imzası yoktur, λ/10 altı boyut sayesinde düşman radarında parlak blob oluşturmaz. Simülasyon görsellerindeki ışıltı yalnızca izleyiciye anlatım amaçlıdır.
+
+## Dokümanlar
+
+- [Aşama 1 Laboratuvar Protokolü](docs/ASAMA1_PROTOKOL.md) — Ekipman listesi, deney tasarımı, bütçe (~₺356k)
+- [Patent Disclosure](docs/PATENT_DISCLOSURE.md) — Buluş bildirim formu (TÜRPATENT'e teslim için)
+- [TÜBİTAK 1512 BiGG Başvurusu](docs/TUBITAK_1512_BASVURU.md) — İş planı taslağı
+
+## Proje Yapısı
+
+```
+kizil-gok/
+├── sim/                    # Simülasyon çekirdeği
+│   ├── config.py           # Fizik parametreleri (aerosol + arayıcı + fünye)
+│   ├── particles.py        # Parçacık bulutu + Coulomb dinamiği + yoğunluk
+│   ├── missile.py          # PN güdümlü füze + arayıcı + bias
+│   ├── effects.py          # RF sönümleme + arayıcı yanması + fünye etkisizleştirme
+│   └── engine.py           # Simülasyon döngüsü + Result
+├── render_cinematic.py     # PIL sinematik video (gece sahnesi, HUD, slow-mo)
+├── animate.py              # Matplotlib animasyon
+├── run_sim.py              # Headless çalıştırıcı
+├── exp_speed.py            # Hız deneyi (çoklu config)
+├── docs/                   # Dokümanlar
+│   ├── ASAMA1_PROTOKOL.md  # Laboratuvar test planı
+│   ├── PATENT_DISCLOSURE.md # Patent bildirimi
+│   └── TUBITAK_1512_BASVURU.md # TÜBİTAK başvuru taslağı
+├── media/                  # Video, poster, GIF
+└── requirements.txt        # Python bağımlılıkları
 ```
 
 ## Yol Haritası
 
+- [x] 2B parçacık + bulut dinamiği + 2 serpici
+- [x] PN güdümlü füze + seek lock
+- [x] Arayıcı tükeme布尔 (burnout) + S&A fünye modeli
+- [x] Bulut doldurma bonusu
+- [x] Hız deneyi — yoğun duvar 600 m/s'de %100
+- [x] Sinematik video + GIF
+- [x] Laboratuvar protokolü + patent disclosure + TÜBİTAK taslağı
+- [ ] Aşama 1 laboratuvar testleri (Ekim 2026)
 - [ ] 3B genişletme + rüzgar alanı
-- [ ] Aynı işaretli / karışık yük (+/-) karşılaştırmalı deneyler
-- [ ] Çoklu füze salvosu ve maliyet-değişim optimizasyonu
-- [ ] Monte Carlo toplu koşucu (isabet istatistikleri grafiği)
-- [ ] Serpici balistiğinin gerçek roket modeliyle değiştirilmesi
+- [ ] Monte Carlo istatistiksel grafik
+- [ ] RF bakım ışını deneyi
 
-## Not
+## Güvenlik Notu
 
-Bu depo **konsept düzeyinde eğitim ve Ar-Ge simülasyonudur**; gerçek bir silah tasarımı içermez.
+Bu proje savunma Ar-Ge kapsamındadır. Tüm testler kapalı alanda, sivil hayata etki olmayacak şekilde tasarlanmıştır. Fiziksel silah içermemektedir.
