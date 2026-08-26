@@ -34,11 +34,23 @@ pip install -r requirements.txt
 # headless simülasyon (farklı tohumlar farklı senaryolar üretir)
 python3 run_sim.py 42
 
-# animasyonlu video + poster
+# sinematik video (gece sahnesi, HUD, slow-motion angajman)
+python3 render_cinematic.py 99 media/demo_sinematik.mp4
+
+# eski stil bilimsel animasyon
 python3 animate.py 99 media/demo.mp4
 ```
 
-Python 3.11+, numpy, matplotlib, ffmpeg gerektirir.
+Python 3.11+, numpy, matplotlib, pillow, ffmpeg gerektirir.
+
+## Sistem Mimarisi (gerçek dünya karşılığı)
+
+| Aşama | Teknoloji |
+|---|---|
+| Erken uyarı / hedefleme | IR uydu + yer bazlı fazlı array radar |
+| Parçacık şarjı | Serpici nozulunda korona deşarjı (elektrostatik püskürtme mantığı, 30-100 kV) |
+| Bulut bakımı (opsiyonel) | Yer istasyonu yüksek güçlü RF bakım ışını → `sim/config.py` içinde `RF_BEAM = True` |
+| Etki | RF zayıflaması + seeker yanılsaması + induksiyon yanması |
 
 ## Senaryo Sonuçları
 

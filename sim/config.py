@@ -17,6 +17,10 @@ DRAG = 0.80               # hava sürtünme katsayısı (1/s)
 GRAVITY = 2.5             # etkili yerçekimi (yüklü aerosol kabullenmesi, m/s^2)
 CHARGE_DECAY_TAU = 25.0   # korona boşalmasıyla yük kaybı zaman sabiti (s)
 
+# yer istasyonu yüksek güçlü RF bakım isini (bulutu iyonize tutar)
+RF_BEAM = False
+RF_BEAM_TAU = 250.0       # isin acikken yuk kaybi zaman sabiti (s)
+
 # iki serpici koridoru kuşatır (İHA + kule), düz yelpaze atış
 DISPENSERS = [
     {"pos": (-380.0, 160.0), "cone_deg": (166.0, 198.0), "speed": (170.0, 365.0)},

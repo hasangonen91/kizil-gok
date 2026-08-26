@@ -17,6 +17,7 @@ def main():
     print(f"Tohum (seed)          : {C.SEED}")
     print(f"Füze başlangıç        : {C.MISSILE_START}  hız {C.MISSILE_SPEED:.0f} m/s")
     print(f"Bulut fırlatma        : t={C.BULUT_DEPLOY_T}s  parçacık={C.N_PARTICLES}")
+    print(f"RF bakım ışını        : {'AÇIK (tau=%ds)' % C.RF_BEAM_TAU if C.RF_BEAM else 'KAPALI'}")
     print("-" * 52)
     print(f"SONUÇ                 : {res.outcome}")
     print(f"Hedefe min. mesafe    : {res.min_dist:.0f} m")

@@ -53,7 +53,8 @@ class ParticleCloud:
 
         self.vel += acc * dt
         self.pos += self.vel * dt
-        self.q *= np.exp(-dt / c.CHARGE_DECAY_TAU)
+        tau = c.RF_BEAM_TAU if getattr(c, "RF_BEAM", False) else c.CHARGE_DECAY_TAU
+        self.q *= np.exp(-dt / tau)
 
     def integrity(self):
         return float(np.abs(self.q).sum()) / self.total_q0
