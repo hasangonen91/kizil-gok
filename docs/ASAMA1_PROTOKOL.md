@@ -176,19 +176,21 @@ Sim'de: DENS_FULL = X / 10^(10/10) = X/10 → yeniden hesapla
 
 ## 7. Bütçe
 
-| Kalem | Tutar (₺) | Not |
-|---|---|---|
-| RF ekipmanı (VNA + anten + kablo) | 28.000 | VNA kiralama 30 gün |
-| Aerosol sistemi (püskürtücü + HG) | 70.000 | En pahalı kalem |
-| Karakterizasyon (OPC + Faraday) | 40.000 | OPC kiralama |
-| Test alanı (tünel + havalandırma) | 35.000 | Prefabrik konteyner |
-| Yazılım + lisans | 5.000 | MATLAB veya GNU Radio |
-| Personel (6 ay, 1 araştırmacı) | 120.000 | TÜBİTAK bursu ile karşılanabilir |
-| Tüketim malzemeleri | 15.000 | Aerosol, kablo, yedek parça |
-| **Beklenmedik (%15)** | **43.000** | |
-| **TOPLAM** | **356.000** | |
+> 💡 **Optimize bütçe için**: [BUDGET_OPTIMIZATION.md](BUDGET_OPTIMIZATION.md) dosyasına bakın — ₺356k → ₺73k'ya düşürülebilir.
 
-**Karşılaştırma**: TÜBİTAK 1512 biGG Phase 1: ~450.000 ₺ hibe → **tamamı karşılanabilir**
+| Kalem | Tam Bütçe (₺) | Optimize (₺) | Not |
+|---|---|---|---|
+| RF ekipmanı (VNA + anten + kablo) | 28.000 | 12.000 | VNA 5 gün batch kiralama |
+| Aerosol sistemi (püskürtücü + HG) | 70.000 | 15.000 | Modifiye boya tabancası |
+| Karakterizasyon (OPC + Faraday) | 40.000 | 3.000 | DIY Faraday + üniversite OPC |
+| Test alanı (tünel + havalandırma) | 35.000 | 5.000 | Mevcut sınıf/alan |
+| Yazılım + lisans | 5.000 | 0 | GNU Radio / Python |
+| Personel (6 ay, 1 araştırmacı) | 120.000 | 20.000 | Öğrenci tezleri + TÜBİTAK |
+| Tüketim malzemeleri | 15.000 | 8.000 | |
+| **Beklenmedik (%15)** | **43.000** | **10.000** | |
+| **TOPLAM** | **356.000** | **73.000** | **%80 tasarruf** |
+
+**Karşılaştırma**: TÜBİTAK 1512 biGG Phase 1: ~450.000 ₺ hibe → optimize bütçenin **6 katı** fazlası
 
 ---
 
