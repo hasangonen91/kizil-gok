@@ -4,9 +4,15 @@ import math
 from typing import Optional
 import numpy as np
 
-from .particles import ParticleCloud
 from .missile import Missile
 from . import effects
+
+# Plazma veya aerosol modu
+from .config import PLASMA_MODE
+if PLASMA_MODE:
+    from .plasma import PlasmaRegion as Cloud
+else:
+    from .particles import ParticleCloud as Cloud
 
 
 class Result:
@@ -28,12 +34,13 @@ class Result:
         self.missile_burnout = False
         self.burn_time = None          # type: Optional[float]
         self.fuze_dead = False
+        self.plasma_info = {}          # plazma durum bilgisi
 
 
 def run(cfg, deploy_t=None):
     deploy_t = cfg.BULUT_DEPLOY_T if deploy_t is None else deploy_t
     rng = np.random.default_rng(cfg.SEED + 7)
-    cloud = ParticleCloud(cfg)
+    cloud = Cloud(cfg)
     missile = Missile(cfg)
 
     res = Result()
@@ -57,7 +64,10 @@ def run(cfg, deploy_t=None):
     for i in range(steps):
         t = i * cfg.DT
         if t >= deploy_t and not deployed:
-            deployed = True  # parçacıklar fırlatıldı (cloud zaten kurulu, aktif oluyor)
+            deployed = True
+            # Plazma modunda: elektrotları aktifleştir
+            if hasattr(cloud, 'activate'):
+                cloud.activate(t)
 
         if not deployed:
             res.t.append(t)
@@ -65,8 +75,13 @@ def run(cfg, deploy_t=None):
             res.missile_heading.append(missile.heading)
             res.lock.append(missile.lock)
             res.att.append(0.0)
-            res.cloud_pos.append(np.full((cfg.N_PARTICLES, 2), np.nan))
-            res.cloud_q.append(np.zeros(cfg.N_PARTICLES))
+            # Plazma modunda boş konum/q listeleri
+            if cfg.PLASMA_MODE:
+                res.cloud_pos.append(np.array([cfg.PLASMA_ELECTRODES[0]]))
+                res.cloud_q.append(np.array([cfg.PLASMA_VOLTAGE]))
+            else:
+                res.cloud_pos.append(np.full((cfg.N_PARTICLES, 2), np.nan))
+                res.cloud_q.append(np.zeros(cfg.N_PARTICLES))
             res.integrity.append(0.0)
             continue
 
@@ -94,8 +109,13 @@ def run(cfg, deploy_t=None):
         res.missile_heading.append(missile.heading)
         res.lock.append(missile.lock)
         res.att.append(att)
-        res.cloud_pos.append(cloud.pos.copy())
-        res.cloud_q.append(cloud.q.copy())
+        # Plazma modunda farklı veri yapısı
+        if cfg.PLASMA_MODE:
+            res.cloud_pos.append(np.array([cfg.PLASMA_ELECTRODES[0]]))
+            res.cloud_q.append(np.array([cfg.PLASMA_VOLTAGE]))
+        else:
+            res.cloud_pos.append(cloud.pos.copy())
+            res.cloud_q.append(cloud.q.copy())
         res.integrity.append(cloud.integrity())
 
         if missile.pos[1] <= 0 or dist < cfg.HIT_RADIUS * 0.4:
@@ -119,4 +139,9 @@ def run(cfg, deploy_t=None):
     res.max_att = max_att
     res.missile_burnout = missile.burnout
     res.burn_time = missile.burn_time
+
+    # Plazma modunda ek bilgi
+    if cfg.PLASMA_MODE and hasattr(cloud, 'summary'):
+        res.plasma_info = cloud.summary()
+
     return res

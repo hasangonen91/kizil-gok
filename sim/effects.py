@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 """Bulutun füze arayıcısı (seeker) üzerindeki etkileri."""
 import numpy as np
+from . import config
 
 
 def attenuation(count, cfg):
-    """Yerel yüklü parçacık sayısından RF sinyal zayıflaması [0,1]."""
-    return float(np.clip(count / cfg.DENS_FULL, 0.0, 0.995))
+    """Yerel yoğunluktan RF sinyal zayıflaması [0,1].
+
+    Plazma modunda PLASMA_DENS_FULL, aerosol modunda DENS_FULL kullanılır.
+    """
+    dens_full = cfg.PLASMA_DENS_FULL if cfg.PLASMA_MODE else cfg.DENS_FULL
+    return float(np.clip(count / dens_full, 0.0, 0.995))
 
 
 def update_lock(missile, att, dt, cfg):

@@ -38,7 +38,8 @@ BULUT_DEPLOY_T = 1.0      # bulut fırlatma anı (füze algılanınca)
 
 # ---- Etki modeli (seeker bozulumu) ----
 DENSITY_RADIUS = 48.0     # yerel yoğunluk ölçüm yarıçapı (m)
-DENS_FULL = 15.0          # tam sinyal kaybına karşılık gelen yerel yüklü parçacık sayısı
+DENS_FULL = 15.0          # tam sinyal kaybına karşılık gelen yerel yüklü parçacık sayısı (aerosol modu)
+PLASMA_DENS_FULL = 1.0    # plazma modu için: density_at() 1.0 döndüğünde tam sinyal kaybı
 LOCK_LOSS_RATE = 1.05     # tam zayıflamada kilit kaybı hızı (1/s)
 LOCK_RECOVER_RATE = 0.10  # temiz havada toparlanma (1/s)
 SEEKER_NOISE = 3.0        # kilit 0 iken maksimum güdüm gürültüsü (rad/s)
@@ -49,3 +50,29 @@ BURN_COUNT_MIN = 8.0      # induksiyon yanması için gereken yerel parçacık s
 BURN_K = 1.30             # yanma olasılık katsayısı (1/s)
 
 FUZE_SAFE_P_BURNOUT = 0.85  # seeker yaninca ayni surun fuze S&A devresini de yaklama olasiligi
+
+# ---- Plazma koruma sistemi (aerosol yerine) ----
+PLASMA_MODE = True  # True = plazma, False = aerosol (eski mod)
+
+# Elektrot yerleşimi: füzenin uçuş koridoruna plazma duvarı (x, metre)
+# Füze (-3100, 430)'den (0, 60)'a alçak açıyla geliyor
+# Plazma duvarı füzenin geçeceği noktaya yerleştirildi
+PLASMA_ELECTRODES = [
+    (-1200.0, 280.0),  # Sol uzun menzil — füze buradan geçer
+    (-800.0, 230.0),   # Sol orta menzil
+    (-400.0, 180.0),   # Sol kısa menzil
+    (0.0, 130.0),      # Merkez — aracın tam önü
+    (400.0, 100.0),    # Sağ kısa menzil
+]
+
+PLASMA_VOLTAGE = 100.0         # Uygulanan gerilim (kV) — pulsed power ile mümkün
+PLASMA_RADIUS = 120.0          # Elektrot etki yarıçapı (m) — Gaussian σ
+PLASMA_GAS_DENSITY = 1.0       # Normalize gaz yoğunluğu (1.0 = standard hava)
+PLASMA_COLLISION_FREQ = 5e9    # Elektron-çarpışma frekansı (Hz) — X-band için kritik
+
+# Plazma RF sönümleme parametreleri
+PLASMA_FREQ_GHZ = 10.0         # Hedef radar frekansı (GHz) — X-band
+PLASMA_THICKNESS = 25.0        # Plazma kalınlığı (m) — füzeyi geçeceği yol
+
+# Plazma aktifleşme zamanlaması
+PLASMA_ACTIVATE_T = 0.5        # Füze algılanınca plazmayı aktifleştirme (s)
