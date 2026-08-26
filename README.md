@@ -66,6 +66,25 @@ Parametreler `sim/config.py` içinde; duvar yoğunluğu, yük karışımı (+/-)
 
 Gerçek sistemde duvar **gözle görünmez**dir: 1-5 mikron iletken mikro-küreler Rayleigh rejiminde saçılır (optik olarak şeffaf), oda sıcaklığında IR imzası yoktur, λ/10 altı boyut sayesinde düşman radarında parlak blob oluşturmaz. Simülasyon görsellerindeki ışıltı yalnızca izleyiciye anlatım amaçlıdır.
 
+## Hız Deneyi (exp_speed.py)
+
+"Yüksek hızlı füze buluttan fazla hızlı geçemez mi?" sorusunun sim cevabı — varış anı sabit, yalnızca geçiş hızı değişir (5 tohum):
+
+| Hız | Taban duvar | Yoğun duvar (2x parçacık, K↓, q↑) |
+|---|---|---|
+| 300 m/s | %40 | **%100** |
+| 600 m/s | %0 | **%100** |
+| 1200 m/s | %0 | **%40** |
+
+Bulgular:
+- Etki süresi = duvar derinliği ÷ füze hızı, ama RF körlüğü anlıktır (EM alan ışık hızında işler) ve induksiyon EMF'si geçiş hızıyla ARTAR
+- Kritik keşif: parçacık sayısını tek başına artırmak Coulomb şişmesiyle duvarı SEYRELTIYOR; yoğunluk = parçacık × yük ÷ itişim dengesiyle yönetilmeli
+- Süpersonik hedefler için yol haritası: yoğun + katmanlı duvar kombinezonu ve RF bakım ışını
+
+```bash
+python3 exp_speed.py
+```
+
 ## Yol Haritası
 
 - [ ] 3B genişletme + rüzgar alanı
