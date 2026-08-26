@@ -6,6 +6,8 @@ Gelen füzeye karşı korunan varlığın önüne **yüklü parçacık bulutu (e
 
 Füze vurulmaz; **görmez, şaşar veya arayıcisi yanar.**
 
+![BULUT-KALKAN angajman demosu](media/demo.gif)
+
 ![poster](media/poster.png)
 
 ## Konsept
