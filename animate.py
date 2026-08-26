@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""BULUT-KALKAN animasyon üretici: MP4 video + poster karesi.
+"""KIZIL GÖK animasyon üretici: MP4 video + poster karesi.
 Kullanım: python3 animate.py [seed] [cikti.mp4]
 """
 import os
@@ -85,7 +85,7 @@ def main():
 
     hud_t = ax.text(0.02, 0.97, "", transform=ax.transAxes, color="#cfe3ff",
                     fontsize=10, family="monospace", va="top", zorder=7)
-    title = ax.text(0.5, 1.03, "BULUT-KALKAN v0.1 — Elektron Bulut Aktif Koruma Simülatörü",
+    title = ax.text(0.5, 1.03, "KIZIL GÖK v0.1 — Elektron Bulut Aktif Koruma Simülatörü",
                     transform=ax.transAxes, ha="center", color="#e8f0ff",
                     fontsize=13, fontweight="bold", zorder=7)
     banner = ax.text(0.5, 0.12, "", transform=ax.transAxes, ha="center",

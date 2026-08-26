@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""BULUT-KALKAN simülasyon parametreleri (SI birimleri: metre, saniye)."""
+"""KIZIL GÖK simülasyon parametreleri (SI birimleri: metre, saniye)."""
 
 SEED = 42
 

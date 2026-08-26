@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""BULUT-KALKAN sinematik render: PIL kare kare compositing + ffmpeg pipe.
+"""KIZIL GÖK sinematik render: PIL kare kare compositing + ffmpeg pipe.
 Kullanim: python3 render_cinematic.py [seed] [cikti.mp4]
 """
 import math
@@ -235,7 +235,7 @@ def hud(frame, fi, t, lock, att, integ, events, blinded, outcome_shown):
     d.rectangle([0, H - LETTERBOX, W, H], fill=(0, 0, 0, 255))
     panel = (8, 12, 22, 170)
     d.rounded_rectangle([18, LETTERBOX + 12, 400, LETTERBOX + 128], 10, fill=panel, outline=(70, 90, 130, 160))
-    d.text((34, LETTERBOX + 22), "BULUT-KALKAN C2", font=F_MED, fill=(140, 220, 255, 255))
+    d.text((34, LETTERBOX + 22), "KIZIL GÖK KOMUTA", font=F_MED, fill=(140, 220, 255, 255))
     d.text((34, LETTERBOX + 52), f"T+{t:06.2f} SN", font=F_BIG, fill=(230, 240, 255, 255))
     d.text((34, LETTERBOX + 92), f"HUD: {HUD_STATE['mode']}", font=F_SMALL, fill=(150, 165, 195, 255))
 
@@ -346,7 +346,7 @@ def main():
     for idx, (kind, i) in enumerate(seq):
         if kind == "title":
             a = min(1.0, i / 18, (INTRO - i) / 18)
-            img = title_card("BULUT-KALKAN", "ELEKTRON BULUT AKTIF KORUMA — KONSEPT DEMONSTRASYONU", max(0.0, a))
+            img = title_card("KIZIL GÖK", "ELEKTRON BULUT AKTİF KORUMA — KONSEPT DEMONSTRASYONU", max(0.0, a))
             proc.stdin.write(np.asarray(img).tobytes())
             continue
         if kind == "outro":

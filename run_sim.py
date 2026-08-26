@@ -12,7 +12,7 @@ def main():
         C.SEED = int(sys.argv[1])
     res = run(C)
     print("=" * 52)
-    print("BULUT-KALKAN v0.1 — Elektron Bulut Aktif Koruma Simülatörü")
+    print("KIZIL GÖK v0.1 — Elektron Bulut Aktif Koruma Simülatörü")
     print("=" * 52)
     print(f"Tohum (seed)          : {C.SEED}")
     print(f"Füze başlangıç        : {C.MISSILE_START}  hız {C.MISSILE_SPEED:.0f} m/s")
