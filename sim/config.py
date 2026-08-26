@@ -47,3 +47,5 @@ GUIDE_AUTHORITY_FLOOR = 0.30  # kilit 0 iken kalan güdüm otoritesi oranı
 
 BURN_COUNT_MIN = 8.0      # induksiyon yanması için gereken yerel parçacık sayısı
 BURN_K = 1.30             # yanma olasılık katsayısı (1/s)
+
+FUZE_SAFE_P_BURNOUT = 0.85  # seeker yaninca ayni surun fuze S&A devresini de yaklama olasiligi

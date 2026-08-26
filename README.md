@@ -57,10 +57,14 @@ Python 3.11+, numpy, matplotlib, pillow, ffmpeg gerektirir.
 Aynı parametrelerle farklı tohumlar gerçekçi dağılım verir:
 
 - `SAPTI — bulut füzeyi kör etti` → kilit kaybı + yanılsama füzyonu saptırdı
-- `SEEKER YANDI` → induksiyon akımı arayıcıyı yaktı, füze balistik uçtu
+- `ÇAKILDI — SAVAŞ BAŞLIĞI ETKİSİZ (dud)` → induksiyon akımı seeker'ı ve fünye S&A devresini birlikte yaktı; füze patlamadan çakıldı
 - `VURDU — bulut yetersiz` → yoğunluk/ zamanlama yetmedi (tesisat parametresi)
 
-Parametreler `sim/config.py` içinde; duvar yoğunluğu, yük karışımı (+/-), serpici yerleşimi ve seeker eşikleri oynanabilir.
+Parametreler `sim/config.py` içinde; duvar yoğunluğu, yük karışımı (+/-), serpici yerleşimi, seeker eşikleri ve fünye emniyet olasılığı oynanabilir.
+
+### Görünürlük notu
+
+Gerçek sistemde duvar **gözle görünmez**dir: 1-5 mikron iletken mikro-küreler Rayleigh rejiminde saçılır (optik olarak şeffaf), oda sıcaklığında IR imzası yoktur, λ/10 altı boyut sayesinde düşman radarında parlak blob oluşturmaz. Simülasyon görsellerindeki ışıltı yalnızca izleyiciye anlatım amaçlıdır.
 
 ## Yol Haritası
 

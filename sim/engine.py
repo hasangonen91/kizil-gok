@@ -27,6 +27,7 @@ class Result:
         self.max_att = 0.0
         self.missile_burnout = False
         self.burn_time = None          # type: Optional[float]
+        self.fuze_dead = False
 
 
 def run(cfg, deploy_t=None):
@@ -75,6 +76,7 @@ def run(cfg, deploy_t=None):
         effects.update_lock(missile, att, cfg.DT, cfg)
         if effects.burnout_roll(missile, count, t, cfg.DT, cfg, rng):
             res.burnout_frame = len(res.t)
+            res.fuze_dead = rng.random() < cfg.FUZE_SAFE_P_BURNOUT
 
         missile.step(cfg.DT, att, rng)
 
@@ -101,7 +103,10 @@ def run(cfg, deploy_t=None):
 
     final = np.linalg.norm(res.missile_pos[-1] - np.array(cfg.TARGET))
     if missile.burnout:
-        outcome = "SEEKER YANDI (balistik sapma)"
+        if res.fuze_dead:
+            outcome = "ÇAKILDI — SAVAŞ BAŞLIĞI ETKİSİZ (dud, patlamadı)"
+        else:
+            outcome = "ÇAKILDI — PATLAMA (S&A devresi hayatta kaldı)"
     elif min_dist < cfg.HIT_RADIUS:
         outcome = "VURDU — bulut yetersiz"
     else:

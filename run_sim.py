@@ -26,6 +26,7 @@ def main():
     print(f"Maks. sinyal zayıflama: %{res.max_att * 100:.0f}")
     if res.missile_burnout:
         print(f"Seeker yanma anı      : t={res.burn_time:.2f} s")
+        print(f"Savaş başlığı         : {'ETKİSİZ (dud)' if res.fuze_dead else 'PATLADI'}")
     print(f"Simülasyon süresi     : {res.t[-1]:.2f} s")
     print("=" * 52)
 
